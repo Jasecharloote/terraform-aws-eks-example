@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 resource "aws_iam_role" "iam_prod_eks_service_role" {
   name = "ProdEKSServiceRole"
 
@@ -63,10 +61,6 @@ POLICY
           "Name" = "ProdPolicyForEKSOIDCServiceRole"
       })
   )
-}
-
-data "tls_certificate" "oidc-certificate" {
-  url = aws_eks_cluster.eks-prod-example.identity.0.oidc.0.issuer
 }
 
 resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
